@@ -1,25 +1,23 @@
 #include <stdio.h>
 
-int main() {
-    int num, originalNum, remainder, result = 0;
-
-    printf("Armstrong numbers between 1 and 1000 are: ");
-
-    for (num = 1; num <= 1000; ++num) {
-        originalNum = num;
-
-        while (originalNum != 0) {
-            remainder = originalNum % 10;
-            result += remainder * remainder * remainder;
-            originalNum /= 10;
+void findMinCoins(int coins[], int numCoins, int amount) {
+    int count = 0;
+    for (int i = numCoins - 1; i >= 0; i--) {
+        while (amount >= coins[i]) {
+            amount -= coins[i];
+            count++;
         }
-
-        if (result == num) {
-            printf("%d ", num);
-        }
-
-        result = 0;
     }
+
+    printf("最少需要 %d 枚硬币\n", count);
+}
+
+int main() {
+    int coins[] = {1, 5, 10, 25}; // 可用的硬币面额
+    int numCoins = sizeof(coins) / sizeof(coins[0]); // 硬币的数量
+    int amount = 47; // 需要找零的金额
+
+    findMinCoins(coins, numCoins, amount);
 
     return 0;
 }
